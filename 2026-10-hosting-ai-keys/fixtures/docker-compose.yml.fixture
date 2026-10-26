@@ -1,0 +1,7 @@
+services:
+  api:
+    image: postgres:16
+    environment:
+      - XAI_TOKEN=FAKEFIXTUREVALUE-compose-0006
+      LOG_LEVEL: debug
+      REPLICATE_API_TOKEN: "FAKEFIXTUREVALUE-compose-0007"

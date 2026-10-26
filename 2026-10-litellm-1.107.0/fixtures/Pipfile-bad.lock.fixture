@@ -1,0 +1,9 @@
+{
+    "default": {
+        "litellm": {
+            "hashes": [],
+            "index": "pypi",
+            "version": "==1.107.0"
+        }
+    }
+}
