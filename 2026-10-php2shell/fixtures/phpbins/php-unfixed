@@ -1,0 +1,4 @@
+#!/bin/sh
+if [ "$1" = "-v" ]; then echo "PHP 8.4.20 (cli) (built: Oct 1 2026)"; exit 0; fi
+if [ "$1" = "-r" ]; then echo "cli"; exit 0; fi
+exit 0

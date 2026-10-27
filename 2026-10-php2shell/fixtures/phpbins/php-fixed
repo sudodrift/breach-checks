@@ -1,0 +1,4 @@
+#!/bin/sh
+if [ "$1" = "-v" ]; then echo "PHP 8.4.27 (cli) (built: Oct 21 2026)"; exit 0; fi
+if [ "$1" = "-r" ]; then echo "fpm-fcgi"; exit 0; fi
+exit 0

@@ -23,6 +23,7 @@ Every script:
 | [2026-10-litellm-1.107.0](2026-10-litellm-1.107.0/) | litellm 1.107.0 in pip, venv, uv, pipx and conda installs, caches and lockfiles, the `cook.pth` startup hook, and marker files | [The LiteLLM Hack Started With a Key Nobody Revoked in May](https://sudodrift.github.io/posts/litellm-key-nobody-revoked/) |
 | [2026-10-warp-trace-check](2026-10-warp-trace-check/) | Masked list of keys sitting in Warp's local agent prompts, conversations, session blocks and MCP config, plus its privacy settings (Python, standard library) | [Warp lost some agent traces. Here is how I would find the keys that were in mine.](https://sudodrift.github.io/posts/warp-agent-traces/) |
 | [2026-10-hosting-ai-keys](2026-10-hosting-ai-keys/) | A masked inventory of AI and other API keys in env files and configs, so you know what to rotate after the Zeabur, OpenCode and Railway incidents | [Someone Spent a Week Raiding Hosting Platforms for AI Keys. Here's How to Check Yours](https://sudodrift.github.io/posts/ai-keys-hosting-platforms/) |
+| [2026-10-php2shell](2026-10-php2shell/) | Unfixed PHP builds for CVE-2026-109618/109619, crash/OOM log lines, web users spawning shells, recently modified PHP in web roots | [Was I Hit by the PHP2Shell Bugs?](https://sudodrift.github.io/posts/php2shell-was-i-hit/) |
 
 ## How to use one
 

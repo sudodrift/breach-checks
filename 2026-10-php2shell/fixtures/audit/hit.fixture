@@ -1,0 +1,1 @@
+type=EXECVE msg=audit(1729512000.000:44): argc=2 a0="sh" a1="-c" exe="/bin/sh" uid=www-data

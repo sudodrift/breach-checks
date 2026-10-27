@@ -1,0 +1,1 @@
+type=EXECVE msg=audit(1729512000.000:44): argc=1 a0="php-fpm" exe="/usr/sbin/php-fpm" uid=www-data

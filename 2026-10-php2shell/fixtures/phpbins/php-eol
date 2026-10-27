@@ -1,0 +1,4 @@
+#!/bin/sh
+if [ "$1" = "-v" ]; then echo "PHP 8.1.32 (cli)"; exit 0; fi
+if [ "$1" = "-r" ]; then echo "apache2handler"; exit 0; fi
+exit 0

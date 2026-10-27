@@ -1,0 +1,5 @@
+USER         PID  PPID COMMAND
+root           1     0 /sbin/init
+www-data    1200     1 php-fpm: pool www
+www-data    1201  1200 php-fpm: pool www
+nginx       1300     1 nginx: worker process
