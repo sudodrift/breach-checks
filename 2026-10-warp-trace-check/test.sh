@@ -18,12 +18,14 @@ con.execute("INSERT INTO ai_queries VALUES (?, '2026-10-20 10:00:00')", ("why do
 con.execute("INSERT INTO blocks VALUES ('env', ?, '2026-10-21 09:00:00')", ("AWS_ACCESS_KEY_ID=" + sys.argv[3],))
 con.commit()
 PY
-printf 'SERVICE_TOKEN=fakefakefakefake\n' > "$T/hit/.warp/.mcp.json"
+printf '{"mcpServers": {"x": {"env": {"SERVICE_TOKEN": "jsonfakejsonfake", "OTHER_API_KEY":"jsonfake2jsonfake2"}}}}\n' > "$T/hit/.warp/.mcp.json"
 out=$(HOME="$T/hit" XDG_STATE_HOME= XDG_CONFIG_HOME= python3 warp-trace-check.py); rc=$?
 [ "$rc" -eq 1 ] || { echo "FAIL: flagged case exit $rc, want 1"; fail=1; }
 echo "$out" | grep -q "FLAG github-token" || { echo "FAIL: github token not found"; fail=1; }
 echo "$out" | grep -q "FLAG aws-access-key" || { echo "FAIL: aws key not found"; fail=1; }
-for v in "$FAKE_GH" "$FAKE_AWS" fakefakefakefake; do
+n=$(echo "$out" | grep -c "FLAG named-secret .*~/.warp/.mcp.json")
+[ "$n" -eq 2 ] || { echo "FAIL: JSON style tokens in .mcp.json: found $n, want 2"; fail=1; }
+for v in "$FAKE_GH" "$FAKE_AWS" jsonfakejsonfake jsonfake2jsonfake2; do
   case "$out" in *"$v"*) echo "FAIL: a full value was printed"; fail=1 ;; esac
 done
 HOME="$T/clean" XDG_STATE_HOME= XDG_CONFIG_HOME= python3 warp-trace-check.py >/dev/null; rc=$?

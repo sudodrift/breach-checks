@@ -50,7 +50,7 @@ RESULT: 3 distinct secret(s). Rotate each at the issuer, then check its usage lo
 ## What a clean result does not prove
 
 - It sees only this machine. Warp's server copy, deleted conversations and older session blocks are out of reach. Clean means "nothing found locally", not "nothing leaked".
-- It matches known key shapes and `NAME_TOKEN=value` style lines. Keys with no fixed shape, like a password inside a connection string, can slip past.
+- It matches known key shapes, `NAME_TOKEN=value` style lines and JSON style `"NAME_TOKEN": "value"` pairs. Keys with no fixed shape, like a password inside a connection string, can slip past.
 - It scans protobuf blobs as bytes and does not decode them.
 - Older Warp versions may use other tables. The script skips tables it cannot find.
 

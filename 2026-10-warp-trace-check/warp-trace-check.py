@@ -42,7 +42,7 @@ PATTERNS = [
     ("npm-token",      rb"\bnpm_[A-Za-z0-9]{36}\b"),
     ("jwt",            rb"\beyJ[A-Za-z0-9_\-]{10,}\.eyJ[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}"),
     ("private-key",    rb"-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----"),
-    ("named-secret",   rb"(?i)\b[A-Z0-9_]*(?:API_KEY|TOKEN|SECRET|PASSWORD|PASSWD)[A-Z0-9_]*\s*[=:]\s*['\"]?([^\s'\"\\]{8,})"),
+    ("named-secret",   rb"(?i)\b[A-Z0-9_]*(?:API_KEY|TOKEN|SECRET|PASSWORD|PASSWD)[A-Z0-9_]*['\"]?\s*[=:]\s*['\"]?([^\s'\"\\]{8,})"),
 ]
 RX = [(n, re.compile(p)) for n, p in PATTERNS]
 SALT = os.urandom(32)  # per run, only used to spot the same value twice
