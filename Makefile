@@ -2,7 +2,7 @@ test:
 	sh tests/run.sh
 
 lint:
-	shellcheck -x */check.sh */test.sh tests/*.sh templates/check/*.sh
+	shellcheck -x */check.sh */stage2.sh */test*.sh tests/*.sh templates/check/*.sh
 
 check: lint test
 
