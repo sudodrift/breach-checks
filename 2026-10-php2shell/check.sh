@@ -46,7 +46,7 @@ note() { echo "   $*"; }
 
 # Compare dotted versions: returns 0 if $1 < $2, 1 if $1 >= $2.
 ver_lt() {
-  # shellcheck disable=SC2086
+  # shellcheck disable=SC2046
   set -- $(echo "$1" | tr '.' ' ') $(echo "$2" | tr '.' ' ')
   a1=${1:-0}; a2=${2:-0}; a3=${3:-0}
   b1=${4:-0}; b2=${5:-0}; b3=${6:-0}

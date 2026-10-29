@@ -78,3 +78,50 @@ distro advisory when the script flags a package you already updated.
 - CISA, Critical Vulnerabilities in PHP Require Immediate Patching: https://www.cisa.gov/news-events/alerts/2026/10/21/critical-vulnerabilities-php-require-immediate-patching
 - PHP GHSA-w8hw-w9fx-j79w (CVE-2026-109618) and GHSA-6wmf-4rv5-p3rp (CVE-2026-109619)
 - Datadog Security Labs, PHP2Shell detection signals: https://securitylabs.datadoghq.com/articles/php2shell-critical-vulnerabilities-in-php/
+
+## Stage 2: did it get root? (Fragnesia, CVE-2026-46300)
+
+On October 26 Dream Research
+[described](https://dreamgroup.com/blog/chained-php2shell-exploit-roots-25-servers)
+a crew that used PHP2Shell to get a shell as `nobody` on firewall appliances,
+then the Linux kernel bug Fragnesia (CVE-2026-46300) to rewrite
+`/etc/pam.d/su` to `pam_permit.so`, planted a 103-byte PHP webshell, and on
+one target kept a reverse SSH tunnel alive with a systemd service and an
+`rc.local` hook. CISA added Fragnesia to KEV on October 28 with a due date of
+October 31 and a forensic triage flag.
+
+`stage2.sh` looks for that chain. Run it as root, and run it **before** you
+reboot or drop caches: Fragnesia edits the in-memory copy of a file, so a
+reboot clears the evidence (the webshell and tunnel stay on disk).
+
+```sh
+sudo sh stage2.sh
+```
+
+It checks:
+
+1. Running kernel against the newest installed one, and whether the running
+   kernel's changelog mentions CVE-2026-46300 (Debian/Ubuntu doc changelog or
+   `rpm -q --changelog`). Without a changelog it compares against the fixed
+   upstream stable releases in the CVE record (5.10.257, 5.15.208, 6.1.174,
+   6.6.141, 6.12.91, 6.18.33, 7.0.10).
+2. Whether `esp4`, `esp6` and `rxrpc` are blocked in `modprobe.d` and whether
+   they are loaded now.
+3. Each PAM file read normally (page cache) against an `O_DIRECT` read (disk).
+4. `auth sufficient pam_permit` in su, sudo, login, sshd and friends.
+5. `dpkg --verify` or `rpm -V` for PAM, su, sudo and sshd packages.
+6. `ssh -R`, `ssh -D`, autossh and iox in systemd units, init scripts,
+   `rc.local`, cron and the process list.
+7. PHP files under 400 bytes in web roots that pass request input to a
+   command function.
+
+It reads only. It never loads or unloads modules and never changes PAM.
+Tests: `sh test-stage2.sh`.
+
+### If stage 2 flags something
+
+Don't reboot. Copy the flagged files with `cat` to somewhere off the box,
+capture memory if you can, and treat the machine as rooted: rebuild it from a
+known-good image, then rotate every secret it held (admin, VPN, the AD
+service account it binds with). On an appliance you cannot shell into, ask
+the vendor for their integrity check instead.
