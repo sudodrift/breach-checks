@@ -4,7 +4,7 @@ set -u
 cd "$(dirname "$0")/.." || exit 2
 failed=0
 total=0
-for t in */test.sh; do
+for t in */test.sh */test-*.sh; do
   [ -f "$t" ] || continue
   total=$((total + 1))
   echo "== ${t%/test.sh}"
